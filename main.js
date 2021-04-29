@@ -185,36 +185,95 @@ function calculateTvToSellCount() {
     const tvSoldNumber = tvSoldArray[i];
     total = total + tvSoldNumber;
     // of total += tvSoldArray[i];
-    console.log("in for loop ", total);
   }
   return total;
 }
-console.log("total", calculateTvToSellCount());
 
 // Opdracht 1b: Zorg ervoor dat dit aantal in het rood wordt weergegeven op de pagina
-// make variable for the new element
-// create an element (document.createElement)
-//set content by changing elements: element.textContent = total
-// appendChild (stick it on the page)
+function displayTVToSellCount() {
+  const totalCount = calculateTvToSellCount();
+  const tvToSellElement = document.createElement("h1");
 
-const tvToSellElement = document.createElement("h1");
+  tvToSellElement.textContent = `We need to sell ${totalCount} tv's`;
+  tvToSellElement.style.color = "red";
+  document.body.appendChild(tvToSellElement);
+}
 
-// const tvType1 = document.createElement("p");
-// tvType1.textContent = tvType[0];
-// document.body.appendChild(tvType1);
-//
-// const inventory2 = document.createElement("p");
-// inventory2.textContent = currentStock[0];
-// document.body.appendChild(inventory2);
+displayTVToSellCount();
 
-// function newTable() {
-//   const table = document.getElementById("tvTable");
-//   const newRow = table.insertRow(-1)
-//   const newCell = newRow.insertCell(-1);
-//   const tvType1 = document.createTextNode(tvType[0]);
-//   newCell.appendChild(tvType1);
-// }
-//newTable("tvTable");
+//Opdracht 2a: Gebruik een array-methode om een array te maken met alle tv-type namen.
+//gebruik array.map(() => )
+// const aanmaken (array) die gevuld word met .map methode
+// return inventory.type
+
+const tvTypeNames = inventory.map((tvTypes) => {
+  return tvTypes.type;
+});
+console.log("Dit zijn alle TV type's: ", tvTypeNames);
+
+// Opdracht 2b: Gebruik een array-methode om alle tv's te verzamelen (de hele objecten) die volledig uitverkocht zijn
+//array.filter om objecten te filteren
+// if statement( stock - sold = 0)
+// return object in array
+
+const soldOutProducts = inventory.filter((item) => {
+  return item.originalStock - item.sold === 0
+});
+console.log("Deze producten zijn uitverkocht: ", soldOutProducts);
+
+// Opdracht 2c: Gebruik een array-methode om alle tv's te verzamelen (de hele objecten) die over AmbiLight beschikken
+// array.filter op objecten --> const
+// wanneer options.ambilight = true
+const tvWithAmbilight = inventory.filter((item) => {
+  return item.options.ambiLight;
+});
+console.log("Deze tv's hebben Ambilight: ", tvWithAmbilight);
+
+//Opdracht 2d: Schrijf een functie die alle tv's van laagste naar hoogste prijs sorteert.
+//gebruik array.sort om te sorteren op prijs:
+// inventory.sort((b, a) => b.price - a.price);
+// variabele aanmaken voor gesorteerde prijs
+// zet dit in een functie
+
+function sortByPrice() {
+  return inventory.sort((a, b) => b.price - a.price);
+
+};
+
+console.log("sorteer op hoogste prijs: ", sortByPrice());
+
+//Opdracht 3a: Wat is onze doel-opbrengst? Bereken wat de totale opbrengst is, als we alle exemplaren van ieder type zouden verkopen. Geef dit in het blauw weer op de pagina.
+//maak een inventory.map en return opbrengst: inventory.price * inventory.originalStock
+//maak een let totaal aan
+//gebruik for loop om over alle doelopbrengsten te itereren
+//tel iedere keer de doelopbrengst bij het totaal op
+
+function calculateTargetRevenue () {
+  const targetRevenue = inventory.map((item) => {
+    return item.price * item.originalStock;
+  })
+
+  let total = 0;
+  for (i = 0; i < targetRevenue.length; i++) {
+    total += targetRevenue[i];
+  }
+  return total;
+}
+
+console.log(calculateTargetRevenue());
+
+function displayTargetRevenue() {
+  const totalTargetRevenue = calculateTargetRevenue();
+  const targetRevenueElement = document.createElement("p");
+
+  targetRevenueElement.textContent = `Our ambition is a revenue of ${totalTargetRevenue} euro's!`;
+  targetRevenueElement.style.color = "blue";
+  document.body.appendChild(targetRevenueElement);
+}
+
+displayTargetRevenue();
+
+
 
 // element.innerText --> tekst aanpassen
 // element.remove() --> verwijderen
