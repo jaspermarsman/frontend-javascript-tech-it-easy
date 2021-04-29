@@ -273,6 +273,49 @@ function displayTargetRevenue() {
 
 displayTargetRevenue();
 
+//opdracht 3b: Hoeveel hebben we tot nu toe verdient? Bereken hoeveel we tot nu toe verdient hebben met het aantal verkochte tv's. Geef dit weer in het groen weer op de pagina
+//constante aanmaken voor omzet
+// nieuwe waarden in array stoppen vanuit inventory.map()
+// callback functie die omzet uitrekent items sold * price
+// let maken voor totale omzet
+// met loop alle omzet in let totale omzet
+
+
+function calculateActualRevenue () {
+  const actualRevenue = inventory.map((item) => {
+    return item.sold * item.price;
+  });
+
+  let total = 0;
+  for (i = 0; i < actualRevenue.length; i++) {
+    total += actualRevenue[i];
+  }
+  return total;
+}
+
+console.log("totaal omzet: ", calculateActualRevenue());
+
+function displayActualRevenue() {
+  const totalActualRevenue = calculateActualRevenue();
+  const totalActualRevenueElement = document.createElement("p");
+  totalActualRevenueElement.textContent = `Our actual revenue is ${totalActualRevenue} euro's.`
+  totalActualRevenueElement.style.color = "green";
+  document.body.appendChild(totalActualRevenueElement);
+}
+
+displayActualRevenue();
+
+// opdracht 4 Geef de type-namen van twee tv's weer op de pagina. Welke tv's dat precies zijn, maakt niet zoveel uit. Voor nu betekent dit dat je het appenden van de nodes twee keer moet uitschrijven, dat is niet erg!
+
+const [ {type: tvExampleOne}, {type: tvExampleTwo} ] = inventory;
+const showTVOneElement = document.createElement("p");
+showTVOneElement.textContent = tvExampleOne;
+document.body.appendChild(showTVOneElement);
+
+const showTVTwoElement = document.createElement("p");
+showTVTwoElement.textContent = tvExampleTwo;
+document.body.appendChild(showTVTwoElement);
+
 
 
 // element.innerText --> tekst aanpassen
