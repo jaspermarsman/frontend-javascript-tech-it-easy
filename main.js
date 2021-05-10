@@ -273,7 +273,9 @@ function displayTargetRevenue() {
 
 displayTargetRevenue();
 
-//opdracht 3b: Hoeveel hebben we tot nu toe verdient? Bereken hoeveel we tot nu toe verdient hebben met het aantal verkochte tv's. Geef dit weer in het groen weer op de pagina
+//opdracht 3b: Hoeveel hebben we tot nu toe verdient? Bereken hoeveel we tot nu toe verdient hebben met het aantal verkochte tv's.
+// Geef dit weer in het groen weer op de pagina
+
 //constante aanmaken voor omzet
 // nieuwe waarden in array stoppen vanuit inventory.map()
 // callback functie die omzet uitrekent items sold * price
@@ -305,7 +307,8 @@ function displayActualRevenue() {
 
 displayActualRevenue();
 
-// opdracht 4 Geef de type-namen van twee tv's weer op de pagina. Welke tv's dat precies zijn, maakt niet zoveel uit. Voor nu betekent dit dat je het appenden van de nodes twee keer moet uitschrijven, dat is niet erg!
+// opdracht 4 Geef de type-namen van twee tv's weer op de pagina. Welke tv's dat precies zijn, maakt niet zoveel uit.
+// Voor nu betekent dit dat je het appenden van de nodes twee keer moet uitschrijven, dat is niet erg!
 
 const [ {type: tvExampleOne}, {type: tvExampleTwo} ] = inventory;
 const showTVOneElement = document.createElement("p");
@@ -316,6 +319,33 @@ const showTVTwoElement = document.createElement("p");
 showTVTwoElement.textContent = tvExampleTwo;
 document.body.appendChild(showTVTwoElement);
 
+// Opdracht 5a: Zorg ervoor dat er een string wordt gegenereerd voor de naam van een tv.
+// Maak een functie die één tv-object als parameter verwacht en de naam op de volgende manier samenvoegt:
+// [merk] [type] - [naam] zoals Philips 43PUS6504/12 - 4K TV of NIKKEI NH3216SMART - HD smart TV.
+// Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken.
+
+// input: een tvobject
+// output: tv.brand + " " + tv.type + " - " + tv.name;
+
+// const tvName = inventory.map((tv) => {
+//   return tv.brand + " " + tv.type + " - " + tv.name;
+// });
+
+
+function createTVName(input){
+  return input.brand + " " + input.type + " - " + input.name;
+}
+
+const firstTV = createTVName(inventory[0]);
+console.log(firstTV);
+
+// Opdracht 5b: Zorg ervoor dat de prijs van een tv netjes geformat wordt.
+// Maak een functie die één tv-prijs als parameter verwacht (zoals 379) en daar de volgende string van maakt: €379,-.
+// Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken.
+function formatPrice(price){
+  return "€" + price + ",-";
+}
+console.log(formatPrice(379));
 
 
 // element.innerText --> tekst aanpassen
