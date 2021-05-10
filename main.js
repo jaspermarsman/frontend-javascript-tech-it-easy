@@ -347,6 +347,30 @@ function formatPrice(price){
 }
 console.log(formatPrice(379));
 
+//Opdracht 5c: Zorg ervoor dat er een string wordt gegenereerd voor alle beschikbare schermgroottes van één tv in zowel
+// inches als cm Maak een functie die één screen-sizes array verwacht en de groottes op de volgende manier samenvoegt:
+// [schermgrootte] inches ([schermgrootte omgerekend]cm) | [schermgrootte] inches ([schermgrootte omgerekend]cm) etc.
+// Dus een input van [32] geeft 32 inch (81 cm) en een input van [43, 50, 55, 58] geeft 43 inch (109 cm)
+// | 50 inch (127 cm) | 58 inch (147 cm). Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken,
+// zowel voor tv's met maar één schermgrootte als met tientallen schermgroottes.
+
+const screenSizes = inventory.map((tvSize) => {
+  return tvSize.availableSizes;
+});
+console.log(screenSizes);
+
+function inchesToCM(input){
+  let allSizes = [];
+  for(let i = 0; i < input.length; i++){
+    allSizes += input[i] + " inch" + " (" + input[i] * 2.54 + " cm) | ";
+  }
+  return allSizes;
+};
+console.log(inchesToCM(screenSizes[3]));
+
+
+
+
 
 // element.innerText --> tekst aanpassen
 // element.remove() --> verwijderen
