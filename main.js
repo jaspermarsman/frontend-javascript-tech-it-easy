@@ -336,16 +336,24 @@ function createTVName(input){
   return input.brand + " " + input.type + " - " + input.name;
 }
 
-const firstTV = createTVName(inventory[0]);
-console.log(firstTV);
+console.log("alle tvs", inventory);
+
+console.log(createTVName(inventory[0]));
 
 // Opdracht 5b: Zorg ervoor dat de prijs van een tv netjes geformat wordt.
 // Maak een functie die één tv-prijs als parameter verwacht (zoals 379) en daar de volgende string van maakt: €379,-.
 // Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken.
-function formatPrice(price){
-  return "€" + price + ",-";
-}
-console.log(formatPrice(379));
+
+// const tvPrices = inventory.map((tvPrice) => {
+//   return tvPrice.price;
+// });
+// console.log(tvPrices[1]);
+
+function formatPrice(input){
+  return "€" + input.price + ",-";
+  }
+
+console.log(formatPrice(inventory[0]));
 
 //Opdracht 5c: Zorg ervoor dat er een string wordt gegenereerd voor alle beschikbare schermgroottes van één tv in zowel
 // inches als cm Maak een functie die één screen-sizes array verwacht en de groottes op de volgende manier samenvoegt:
@@ -357,7 +365,6 @@ console.log(formatPrice(379));
 const screenSizes = inventory.map((tvSize) => {
   return tvSize.availableSizes;
 });
-console.log(screenSizes);
 
 function inchesToCM(input){
   let allSizes = [];
@@ -366,8 +373,24 @@ function inchesToCM(input){
   }
   return allSizes;
 };
-console.log(inchesToCM(screenSizes[3]));
+console.log(inchesToCM(screenSizes[0]));
 
+//Opdracht 5d: Zorg ervoor de informatie van één van de twee tv's zoals het voorbeeld wordt weergegeven op de pagina.
+// Gebruik hiervoor de functies die je hebt gemaakt in opdracht 5a, 5b en 5c.
+
+const displayName = document.getElementById("display-name");
+displayName.textContent = createTVName(inventory[0]);
+
+const displayPrice = document.getElementById("display-price");
+displayPrice.textContent = formatPrice(inventory[0]);
+
+const displayScreenSizes = document.getElementById("display-sizes");
+displayScreenSizes.textContent = inchesToCM(screenSizes[0]);
+
+//Opdracht 5e: Schrijf een functie die ALLE tv's weergeeft op de pagina zoals in het voorbeeld.
+// Dit wil je natuurlijk niet acht keer opnieuw schrijven, want nu zijn het 8 tv's, maar in de toekomst misschien wel
+// 200! Gebruik in deze functie de voorgaande functies die je hebt geschreven, om onderdelen van de data te formatten.
+// Deze "tv-generator-functie" verwacht één parameter: de volledige array met tv-objecten. Vergeet 'm niet aan te roepen!
 
 
 
