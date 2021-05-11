@@ -161,3 +161,246 @@ const inventory = [
     sold: 8,
   },
 ];
+
+// Opdracht 1a: Hoeveel exemplaren moeten we nog verkopen? Schrijf een functie die dit berekent.
+// - [ ] make a variable to store the total
+// - [ ] inventory.map(~ callback here ~)
+// - [ ] callback schrijven voor map
+// - [ ] parameter: television
+// - [ ] log the data we need: television.sold, television.originalStock
+// - [ ] do math: const tvsToSell = originalStock - sold
+//     - [ ] console.log(tvsToSell)
+// - [ ] return the value from the callback: tvsToSell
+// - [ ] We should have something like: `[3, 4, 9, 11]`
+// - [ ] Loop over the array of numbers and add them together (possibly google it)
+
+function calculateTvToSellCount() {
+  const tvSoldArray = inventory.map((television) => {
+    return television.originalStock - television.sold;
+  });
+
+  let total = 0;
+
+  for (let i = 0; i < tvSoldArray.length; i++) {
+    const tvSoldNumber = tvSoldArray[i];
+    total = total + tvSoldNumber;
+    // of total += tvSoldArray[i];
+  }
+  return total;
+}
+
+// Opdracht 1b: Zorg ervoor dat dit aantal in het rood wordt weergegeven op de pagina
+function displayTVToSellCount() {
+  const totalCount = calculateTvToSellCount();
+  const tvToSellElement = document.createElement("h1");
+
+  tvToSellElement.textContent = `We need to sell ${totalCount} tv's`;
+  tvToSellElement.style.color = "red";
+  document.body.appendChild(tvToSellElement);
+}
+
+displayTVToSellCount();
+
+//Opdracht 2a: Gebruik een array-methode om een array te maken met alle tv-type namen.
+//gebruik array.map(() => )
+// const aanmaken (array) die gevuld word met .map methode
+// return inventory.type
+
+const tvTypeNames = inventory.map((tvTypes) => {
+  return tvTypes.type;
+});
+console.log("Dit zijn alle TV type's: ", tvTypeNames);
+
+// Opdracht 2b: Gebruik een array-methode om alle tv's te verzamelen (de hele objecten) die volledig uitverkocht zijn
+//array.filter om objecten te filteren
+// if statement( stock - sold = 0)
+// return object in array
+
+const soldOutProducts = inventory.filter((item) => {
+  return item.originalStock - item.sold === 0
+});
+console.log("Deze producten zijn uitverkocht: ", soldOutProducts);
+
+// Opdracht 2c: Gebruik een array-methode om alle tv's te verzamelen (de hele objecten) die over AmbiLight beschikken
+// array.filter op objecten --> const
+// wanneer options.ambilight = true
+const tvWithAmbilight = inventory.filter((item) => {
+  return item.options.ambiLight;
+});
+console.log("Deze tv's hebben Ambilight: ", tvWithAmbilight);
+
+//Opdracht 2d: Schrijf een functie die alle tv's van laagste naar hoogste prijs sorteert.
+//gebruik array.sort om te sorteren op prijs:
+// inventory.sort((b, a) => b.price - a.price);
+// variabele aanmaken voor gesorteerde prijs
+// zet dit in een functie
+
+function sortByPrice() {
+  return inventory.sort((a, b) => b.price - a.price);
+
+};
+
+console.log("sorteer op hoogste prijs: ", sortByPrice());
+
+//Opdracht 3a: Wat is onze doel-opbrengst? Bereken wat de totale opbrengst is, als we alle exemplaren van ieder type zouden verkopen. Geef dit in het blauw weer op de pagina.
+//maak een inventory.map en return opbrengst: inventory.price * inventory.originalStock
+//maak een let totaal aan
+//gebruik for loop om over alle doelopbrengsten te itereren
+//tel iedere keer de doelopbrengst bij het totaal op
+
+function calculateTargetRevenue () {
+  const targetRevenue = inventory.map((item) => {
+    return item.price * item.originalStock;
+  })
+
+  let total = 0;
+  for (i = 0; i < targetRevenue.length; i++) {
+    total += targetRevenue[i];
+  }
+  return total;
+}
+
+console.log(calculateTargetRevenue());
+
+function displayTargetRevenue() {
+  const totalTargetRevenue = calculateTargetRevenue();
+  const targetRevenueElement = document.createElement("p");
+
+  targetRevenueElement.textContent = `Our ambition is a revenue of ${totalTargetRevenue} euro's!`;
+  targetRevenueElement.style.color = "blue";
+  document.body.appendChild(targetRevenueElement);
+}
+
+displayTargetRevenue();
+
+//opdracht 3b: Hoeveel hebben we tot nu toe verdient? Bereken hoeveel we tot nu toe verdient hebben met het aantal verkochte tv's.
+// Geef dit weer in het groen weer op de pagina
+
+//constante aanmaken voor omzet
+// nieuwe waarden in array stoppen vanuit inventory.map()
+// callback functie die omzet uitrekent items sold * price
+// let maken voor totale omzet
+// met loop alle omzet in let totale omzet
+
+
+function calculateActualRevenue () {
+  const actualRevenue = inventory.map((item) => {
+    return item.sold * item.price;
+  });
+
+  let total = 0;
+  for (i = 0; i < actualRevenue.length; i++) {
+    total += actualRevenue[i];
+  }
+  return total;
+}
+
+console.log("totaal omzet: ", calculateActualRevenue());
+
+function displayActualRevenue() {
+  const totalActualRevenue = calculateActualRevenue();
+  const totalActualRevenueElement = document.createElement("p");
+  totalActualRevenueElement.textContent = `Our actual revenue is ${totalActualRevenue} euro's.`
+  totalActualRevenueElement.style.color = "green";
+  document.body.appendChild(totalActualRevenueElement);
+}
+
+displayActualRevenue();
+
+// opdracht 4 Geef de type-namen van twee tv's weer op de pagina. Welke tv's dat precies zijn, maakt niet zoveel uit.
+// Voor nu betekent dit dat je het appenden van de nodes twee keer moet uitschrijven, dat is niet erg!
+
+const [ {type: tvExampleOne}, {type: tvExampleTwo} ] = inventory;
+const showTVOneElement = document.createElement("p");
+showTVOneElement.textContent = tvExampleOne;
+document.body.appendChild(showTVOneElement);
+
+const showTVTwoElement = document.createElement("p");
+showTVTwoElement.textContent = tvExampleTwo;
+document.body.appendChild(showTVTwoElement);
+
+// Opdracht 5a: Zorg ervoor dat er een string wordt gegenereerd voor de naam van een tv.
+// Maak een functie die één tv-object als parameter verwacht en de naam op de volgende manier samenvoegt:
+// [merk] [type] - [naam] zoals Philips 43PUS6504/12 - 4K TV of NIKKEI NH3216SMART - HD smart TV.
+// Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken.
+
+// input: een tvobject
+// output: tv.brand + " " + tv.type + " - " + tv.name;
+
+// const tvName = inventory.map((tv) => {
+//   return tv.brand + " " + tv.type + " - " + tv.name;
+// });
+
+
+function createTVName(input){
+  return input.brand + " " + input.type + " - " + input.name;
+}
+
+console.log("alle tvs", inventory);
+
+console.log(createTVName(inventory[0]));
+
+// Opdracht 5b: Zorg ervoor dat de prijs van een tv netjes geformat wordt.
+// Maak een functie die één tv-prijs als parameter verwacht (zoals 379) en daar de volgende string van maakt: €379,-.
+// Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken.
+
+// const tvPrices = inventory.map((tvPrice) => {
+//   return tvPrice.price;
+// });
+// console.log(tvPrices[1]);
+
+function formatPrice(input){
+  return "€" + input.price + ",-";
+  }
+
+console.log(formatPrice(inventory[0]));
+
+//Opdracht 5c: Zorg ervoor dat er een string wordt gegenereerd voor alle beschikbare schermgroottes van één tv in zowel
+// inches als cm Maak een functie die één screen-sizes array verwacht en de groottes op de volgende manier samenvoegt:
+// [schermgrootte] inches ([schermgrootte omgerekend]cm) | [schermgrootte] inches ([schermgrootte omgerekend]cm) etc.
+// Dus een input van [32] geeft 32 inch (81 cm) en een input van [43, 50, 55, 58] geeft 43 inch (109 cm)
+// | 50 inch (127 cm) | 58 inch (147 cm). Zorg ervoor dat je deze functie voor iedere tv zou kunnen gebruiken,
+// zowel voor tv's met maar één schermgrootte als met tientallen schermgroottes.
+
+const screenSizes = inventory.map((tvSize) => {
+  return tvSize.availableSizes;
+});
+
+function inchesToCM(input){
+  let allSizes = [];
+  for(let i = 0; i < input.length; i++){
+    allSizes += input[i] + " inch" + " (" + input[i] * 2.54 + " cm) | ";
+  }
+  return allSizes;
+};
+console.log(inchesToCM(screenSizes[0]));
+
+//Opdracht 5d: Zorg ervoor de informatie van één van de twee tv's zoals het voorbeeld wordt weergegeven op de pagina.
+// Gebruik hiervoor de functies die je hebt gemaakt in opdracht 5a, 5b en 5c.
+
+const displayName = document.getElementById("display-name");
+displayName.textContent = createTVName(inventory[0]);
+
+const displayPrice = document.getElementById("display-price");
+displayPrice.textContent = formatPrice(inventory[0]);
+
+const displayScreenSizes = document.getElementById("display-sizes");
+displayScreenSizes.textContent = inchesToCM(screenSizes[0]);
+
+//Opdracht 5e: Schrijf een functie die ALLE tv's weergeeft op de pagina zoals in het voorbeeld.
+// Dit wil je natuurlijk niet acht keer opnieuw schrijven, want nu zijn het 8 tv's, maar in de toekomst misschien wel
+// 200! Gebruik in deze functie de voorgaande functies die je hebt geschreven, om onderdelen van de data te formatten.
+// Deze "tv-generator-functie" verwacht één parameter: de volledige array met tv-objecten. Vergeet 'm niet aan te roepen!
+
+
+
+
+// element.innerText --> tekst aanpassen
+// element.remove() --> verwijderen
+// document.createElement("p); nieuw element aanmaken
+// document.body.apendChild(nieuwe-variabele); (op de pagina plakken)
+
+// element selecteren: const button = document.getElementById("best-button");
+// listen to click events and handle to it:
+// button.addEventListener("click", () => { console.log("handle it"); } );
+
